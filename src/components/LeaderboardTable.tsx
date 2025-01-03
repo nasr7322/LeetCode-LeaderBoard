@@ -1,15 +1,14 @@
+import { ArrowUpDown, ExternalLink, Target, Trophy, Zap } from 'lucide-react';
 import React, { useState } from 'react';
 import { UserData } from '../types/leetcode';
-import { ArrowUpDown, Trophy, Target, Zap, ExternalLink, Trash2 } from 'lucide-react';
 
 interface Props {
   data: UserData[];
-  onRemoveUser: (username: string) => void;
 }
 
 type SortKey = 'totalSolved' | 'ranking' | 'acceptanceRate' | 'contributionPoints';
 
-export const LeaderboardTable: React.FC<Props> = ({ data, onRemoveUser }) => {
+export const LeaderboardTable: React.FC<Props> = ({ data }) => {
   const [sortKey, setSortKey] = useState<SortKey>('totalSolved');
   const [sortDesc, setSortDesc] = useState(true);
 
@@ -56,7 +55,6 @@ export const LeaderboardTable: React.FC<Props> = ({ data, onRemoveUser }) => {
               </div>
             </th>
             <th className="px-6 py-3">Progress</th>
-            <th className="px-6 py-3">Actions</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-800">
@@ -91,15 +89,6 @@ export const LeaderboardTable: React.FC<Props> = ({ data, onRemoveUser }) => {
                   <span className="text-leetcode-medium">M: {user.mediumSolved}</span>
                   <span className="text-leetcode-hard">H: {user.hardSolved}</span>
                 </div>
-              </td>
-              <td className="px-6 py-4">
-                <button
-                  onClick={() => onRemoveUser(user.username)}
-                  className="p-2 text-gray-400 hover:text-red-400 rounded-full hover:bg-red-400/10 transition-colors"
-                  title="Remove user"
-                >
-                  <Trash2 size={16} />
-                </button>
               </td>
             </tr>
           ))}
