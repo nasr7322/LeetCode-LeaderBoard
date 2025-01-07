@@ -17,8 +17,8 @@ const getCurrentStreak = (
         if (previousDate.getDate() !== new Date().getDate() - 1) {
             return { solvedToday, currentStreak };
         }
-        currentStreak = 1;
     }
+    currentStreak = 1;
     for (let i = 0; i < timestamps.length; i++) {
         const currentDate = new Date(timestamps[i] * 1000);
         if (previousDate.getDate() === currentDate.getDate() + 1) {
@@ -41,27 +41,61 @@ export const useLeetCode = (users: UserProfile[]) => {
         const fetchData = async () => {
             try {
                 const promises = users.map(async (user) => {
-                    const response = await fetch(
-                        `https://leetcode-stats-api.herokuapp.com/${user.username}`
-                    );
-                    const data: LeetCodeStats = await response.json();
-                    const { solvedToday, currentStreak } = getCurrentStreak(
-                        data.submissionCalendar
-                    );
-                    // console.log(user.username, currentStreak, solvedToday);
-                    return {
-                        ...data,
-                        username: user.username,
-                        displayName: user.displayName,
-                        currentStreak,
-                        solvedToday,
-                    };
+                    try {
+                        const response = await fetch(
+                            `https://leetcode-stats-api.herokuapp.com/${user.username}`
+                        );
+                        if (!response.ok) {
+                            throw new Error("Failed to fetch user data");
+                        }
+                        const data: LeetCodeStats = await response.json();
+                        const { solvedToday, currentStreak } = getCurrentStreak(
+                            data.submissionCalendar
+                        );
+                        console.log(user.username, currentStreak, solvedToday);
+                        return {
+                            ...data,
+                            username: user.username,
+                            displayName: user.displayName,
+                            currentStreak,
+                            solvedToday,
+                        };
+                    } catch (err) {
+                        console.error(
+                            `Error fetching data for user ${user.username}:`
+                        );
+                        return null;
+                    }
                 });
-
-                const results = await Promise.all(promises);
-                setUserData(results);
+                const results = (await Promise.all(promises)).filter(
+                    (result) => result !== null
+                );
+                // if (results.length === 0)
+                //     throw new Error("No valid user data found");
+                // else if (results.length < users.length)
+                //     setError("Failed to fetch data for some users");
+                // setUserData(results as UserData[]);
+                // merge the results with the existing data
+                setUserData((prevData) => {
+                    const newData = [...prevData];
+                    results.forEach((result) => {
+                        const index = newData.findIndex(
+                            (data) => data.username === result.username
+                        );
+                        if (index !== -1) {
+                            newData[index] = result;
+                        } else {
+                            newData.push(result);
+                        }
+                    });
+                    return newData;
+                });
+                if (userData.length === 0)
+                    setError("Failed to fetch LeetCode data");
+                else if (userData.length < users.length)
+                    setError("Failed to fetch data for some users");
+                else setError(null);
                 setLoading(false);
-                // console.log(results);
             } catch (err) {
                 setError("Failed to fetch LeetCode data");
                 setLoading(false);
