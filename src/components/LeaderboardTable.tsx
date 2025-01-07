@@ -24,7 +24,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
     const [sortKey, setSortKey] = useState<SortKey>("totalSolved");
     const [sortDesc, setSortDesc] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [itemsPerPage, setItemsPerPage] = useState(20);
 
     const handleSort = (key: SortKey) => {
         if (sortKey === key) {
@@ -199,9 +199,9 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                         onChange={handleItemsPerPageChange}
                         className="px-4 py-2 bg-leetcode-dark text-leetcode-text border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-leetcode-button"
                     >
-                        <option value={10}>10</option>
-                        <option value={25}>25</option>
+                        <option value={20}>20</option>
                         <option value={50}>50</option>
+                        <option value={100}>100</option>
                     </select>
                 </div>
                 <div>
