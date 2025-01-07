@@ -1,10 +1,10 @@
 # LeetCode-LeaderBoard 
 
-![Static Badge](https://img.shields.io/badge/Hosted_on-Vercel-black%3Flogo%3Dvercel)
+[![Static Badge](https://img.shields.io/badge/Hosted_on-Vercel-black%3Flogo%3Dvercel)](https://leet-code-leader-board.vercel.app/)
 
 LeetCode Leaderboard is a React application that displays a leaderboard of users based on their LeetCode statistics. The application fetches user data from the LeetCode API and displays it in a sortable and paginated table.
 
-<img src="./images/Project%20Ui.png" alt="LeetCode Leaderboard" width="500">
+<img src="./images/Project%20Ui.png" alt="LeetCode Leaderboard">
 
 ## Features
 
