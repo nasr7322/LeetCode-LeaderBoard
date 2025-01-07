@@ -1,10 +1,10 @@
 import {
     ArrowUpDown,
     ExternalLink,
+    Flame,
     Target,
     Trophy,
     Zap,
-    Flame,
 } from "lucide-react";
 import React, { useState } from "react";
 import { UserData } from "../types/leetcode";
@@ -23,6 +23,8 @@ type SortKey =
 export const LeaderboardTable: React.FC<Props> = ({ data }) => {
     const [sortKey, setSortKey] = useState<SortKey>("totalSolved");
     const [sortDesc, setSortDesc] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
     const handleSort = (key: SortKey) => {
         if (sortKey === key) {
@@ -37,6 +39,12 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
         const multiplier = sortDesc ? -1 : 1;
         return (a[sortKey] - b[sortKey]) * multiplier;
     });
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedData = sortedData.slice(startIndex, endIndex);
+
+    const totalPages = Math.ceil(data.length / itemsPerPage);
 
     return (
         <div className="overflow-x-auto rounded-lg shadow-lg">
@@ -93,12 +101,12 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-800">
-                    {sortedData.map((user, index) => (
+                    {paginatedData.map((user, index) => (
                         <tr
                             key={user.username}
                             className="hover:bg-gray-800/50"
                         >
-                            <td className="px-6 py-4">{index + 1}</td>
+                            <td className="px-6 py-4">{startIndex + index + 1}</td>
                             <td className="px-6 py-4">
                                 <div>
                                     <div className="font-medium">
@@ -174,6 +182,25 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                     ))}
                 </tbody>
             </table>
+            <div className="flex justify-between items-center mt-4">
+                <button
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 bg-leetcode-button text-white rounded-lg hover:bg-leetcode-hover transition-colors disabled:opacity-50"
+                >
+                    Previous
+                </button>
+                <span className="text-leetcode-text">
+                    Page {currentPage} of {totalPages}
+                </span>
+                <button
+                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 bg-leetcode-button text-white rounded-lg hover:bg-leetcode-hover transition-colors disabled:opacity-50"
+                >
+                    Next
+                </button>
+            </div>
         </div>
     );
 };
