@@ -24,7 +24,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
     const [sortKey, setSortKey] = useState<SortKey>("totalSolved");
     const [sortDesc, setSortDesc] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const [itemsPerPage, setItemsPerPage] = useState(10);
 
     const handleSort = (key: SortKey) => {
         if (sortKey === key) {
@@ -33,6 +33,11 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
             setSortKey(key);
             setSortDesc(true);
         }
+    };
+
+    const handleItemsPerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setItemsPerPage(Number(event.target.value));
+        setCurrentPage(1); // Reset to first page when items per page changes
     };
 
     const sortedData = [...data].sort((a, b) => {
@@ -51,10 +56,10 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
             <table className="min-w-full bg-leetcode-dark text-leetcode-text">
                 <thead className="border-b border-gray-800">
                     <tr>
-                        <th className="px-6 py-3 text-left">Rank</th>
-                        <th className="px-6 py-3 text-left">Name</th>
+                        <th className="px-6 py-3 text-left w-20">Rank</th>
+                        <th className="px-6 py-3 text-left w-40">Name</th>
                         <th
-                            className="px-6 py-3 cursor-pointer"
+                            className="px-6 py-3 cursor-pointer w-40"
                             onClick={() => handleSort("totalSolved")}
                         >
                             <div className="flex items-center gap-2">
@@ -64,7 +69,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                             </div>
                         </th>
                         <th
-                            className="px-6 py-3 cursor-pointer"
+                            className="px-6 py-3 cursor-pointer w-40"
                             onClick={() => handleSort("ranking")}
                         >
                             <div className="flex items-center gap-2">
@@ -74,7 +79,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                             </div>
                         </th>
                         <th
-                            className="px-6 py-3 cursor-pointer"
+                            className="px-6 py-3 cursor-pointer w-40"
                             onClick={() => handleSort("acceptanceRate")}
                         >
                             <div className="flex items-center gap-2">
@@ -84,7 +89,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                             </div>
                         </th>
                         <th
-                            className="px-6 py-3 cursor-pointer"
+                            className="px-6 py-3 cursor-pointer w-40"
                             onClick={() => handleSort("currentStreak")}
                         >
                             <div className="flex items-center gap-2">
@@ -97,7 +102,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                 <ArrowUpDown size={16} className="opacity-50" />
                             </div>
                         </th>
-                        <th className="px-6 py-3">Progress</th>
+                        <th className="px-6 py-3 w-40">Progress</th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-800">
@@ -106,8 +111,8 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                             key={user.username}
                             className="hover:bg-gray-800/50"
                         >
-                            <td className="px-6 py-4">{startIndex + index + 1}</td>
-                            <td className="px-6 py-4">
+                            <td className="px-6 py-4 w-20">{startIndex + index + 1}</td>
+                            <td className="px-6 py-4 w-40">
                                 <div>
                                     <div className="font-medium">
                                         {user.displayName}
@@ -123,7 +128,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                     </a>
                                 </div>
                             </td>
-                            <td className="px-6 py-4">
+                            <td className="px-6 py-4 w-40">
                                 <div className="flex gap-2">
                                     <span className="font-semibold">
                                         {user.totalSolved}
@@ -133,13 +138,13 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                     </span>
                                 </div>
                             </td>
-                            <td className="px-6 py-4">
+                            <td className="px-6 py-4 w-40">
                                 {user.ranking.toLocaleString()}
                             </td>
-                            <td className="px-6 py-4">
+                            <td className="px-6 py-4 w-40">
                                 {user.acceptanceRate.toFixed(1)}%
                             </td>
-                            <td className="px-6 py-4">
+                            <td className="px-6 py-4 w-40">
                                 <div className="flex items-center gap-2">
                                     <Flame
                                         size={16}
@@ -165,7 +170,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                     </span>
                                 </div>
                             </td>
-                            <td className="px-6 py-4">
+                            <td className="px-6 py-4 w-40">
                                 <div className="flex gap-2 text-sm">
                                     <span className="text-leetcode-easy">
                                         E: {user.easySolved}
@@ -182,24 +187,42 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                     ))}
                 </tbody>
             </table>
-            <div className="flex justify-between items-center mt-4">
-                <button
-                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                    disabled={currentPage === 1}
-                    className="px-4 py-2 bg-leetcode-button text-white rounded-lg hover:bg-leetcode-hover transition-colors disabled:opacity-50"
-                >
-                    Previous
-                </button>
-                <span className="text-leetcode-text">
-                    Page {currentPage} of {totalPages}
-                </span>
-                <button
-                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                    className="px-4 py-2 bg-leetcode-button text-white rounded-lg hover:bg-leetcode-hover transition-colors disabled:opacity-50"
-                >
-                    Next
-                </button>
+            
+            <div className="flex justify-between items-center m-6">
+                <div>
+                    <label htmlFor="itemsPerPage" className="mr-2 text-leetcode-text">
+                        Items per page:
+                    </label>
+                    <select
+                        id="itemsPerPage"
+                        value={itemsPerPage}
+                        onChange={handleItemsPerPageChange}
+                        className="px-4 py-2 bg-leetcode-dark text-leetcode-text border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-leetcode-button"
+                    >
+                        <option value={10}>10</option>
+                        <option value={25}>25</option>
+                        <option value={50}>50</option>
+                    </select>
+                </div>
+                <div>
+                    <button
+                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 bg-leetcode-button text-white rounded-lg hover:bg-leetcode-hover transition-colors disabled:opacity-50"
+                    >
+                        Previous
+                    </button>
+                    <span className="mx-4 text-leetcode-text">
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 bg-leetcode-button text-white rounded-lg hover:bg-leetcode-hover transition-colors disabled:opacity-50"
+                    >
+                        Next
+                    </button>
+                </div>
             </div>
         </div>
     );
