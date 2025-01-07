@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { LeetCodeStats, UserData } from "../types/leetcode";
 import { UserProfile } from "../types/user";
 
@@ -31,6 +31,7 @@ const getCurrentStreak = (
     }
     return { solvedToday, currentStreak };
 };
+
 
 export const useLeetCode = (users: UserProfile[]) => {
     const [userData, setUserData] = useState<UserData[]>([]);
