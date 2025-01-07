@@ -56,10 +56,10 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
             <table className="min-w-full bg-leetcode-dark text-leetcode-text">
                 <thead className="border-b border-gray-800">
                     <tr>
-                        <th className="px-6 py-3 text-left w-20">Rank</th>
-                        <th className="px-6 py-3 text-left w-40">Name</th>
+                        <th className="px-6 py-3 text-left">Rank</th>
+                        <th className="px-6 py-3 text-left">Name</th>
                         <th
-                            className="px-6 py-3 cursor-pointer w-40"
+                            className="px-6 py-3 cursor-pointer"
                             onClick={() => handleSort("totalSolved")}
                         >
                             <div className="flex items-center gap-2">
@@ -69,7 +69,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                             </div>
                         </th>
                         <th
-                            className="px-6 py-3 cursor-pointer w-40"
+                            className="px-6 py-3 cursor-pointer"
                             onClick={() => handleSort("ranking")}
                         >
                             <div className="flex items-center gap-2">
@@ -79,7 +79,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                             </div>
                         </th>
                         <th
-                            className="px-6 py-3 cursor-pointer w-40"
+                            className="px-6 py-3 cursor-pointer"
                             onClick={() => handleSort("acceptanceRate")}
                         >
                             <div className="flex items-center gap-2">
@@ -89,7 +89,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                             </div>
                         </th>
                         <th
-                            className="px-6 py-3 cursor-pointer w-40"
+                            className="px-6 py-3 cursor-pointer"
                             onClick={() => handleSort("currentStreak")}
                         >
                             <div className="flex items-center gap-2">
@@ -102,7 +102,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                 <ArrowUpDown size={16} className="opacity-50" />
                             </div>
                         </th>
-                        <th className="px-6 py-3 w-40">Progress</th>
+                        <th className="px-6 py-3">Progress</th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-800">
@@ -111,8 +111,8 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                             key={user.username}
                             className="hover:bg-gray-800/50"
                         >
-                            <td className="px-6 py-4 w-20">{startIndex + index + 1}</td>
-                            <td className="px-6 py-4 w-40">
+                            <td className="px-6 py-4">{startIndex + index + 1}</td>
+                            <td className="px-6 py-4 w-1/3">
                                 <div>
                                     <div className="font-medium">
                                         {user.displayName}
@@ -128,8 +128,8 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                     </a>
                                 </div>
                             </td>
-                            <td className="px-6 py-4 w-40">
-                                <div className="flex gap-2">
+                            <td className="px-6 py-4">
+                                <div className="flex gap-2 justify-center">
                                     <span className="font-semibold">
                                         {user.totalSolved}
                                     </span>
@@ -138,14 +138,14 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                     </span>
                                 </div>
                             </td>
-                            <td className="px-6 py-4 w-40">
+                            <td className="px-6 py-4 text-center">
                                 {user.ranking.toLocaleString()}
                             </td>
-                            <td className="px-6 py-4 w-40">
+                            <td className="px-6 py-4 text-center">
                                 {user.acceptanceRate.toFixed(1)}%
                             </td>
-                            <td className="px-6 py-4 w-40">
-                                <div className="flex items-center gap-2">
+                            <td className="px-6 py-4">
+                                <div className="flex items-center gap-2 justify-center">
                                     <Flame
                                         size={16}
                                         fill={
@@ -162,16 +162,16 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                     <span
                                         className={
                                             user.solvedToday
-                                                ? "font-semibold text-orange-500 animate-pulse drop-shadow-[0_0_8px_rgba(249,115,22,0.7)]"
-                                                : "font-semibold text-gray-500"
+                                                ? "font-semibold text-orange-500 animate-pulse drop-shadow-[0_0_8px_rgba(249,115,22,0.7)] px-1"
+                                                : "font-semibold text-gray-500 px-1"
                                         }
                                     >
                                         {user.currentStreak}
                                     </span>
                                 </div>
                             </td>
-                            <td className="px-6 py-4 w-40">
-                                <div className="flex gap-2 text-sm">
+                            <td className="px-6 py-4">
+                                <div className="flex gap-2 text-sm justify-center">
                                     <span className="text-leetcode-easy">
                                         E: {user.easySolved}
                                     </span>
