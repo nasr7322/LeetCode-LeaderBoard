@@ -70,26 +70,18 @@ export const useLeetCode = (users: UserProfile[]) => {
                 const results = (await Promise.all(promises)).filter(
                     (result) => result !== null
                 );
-                // if (results.length === 0)
-                //     throw new Error("No valid user data found");
-                // else if (results.length < users.length)
-                //     setError("Failed to fetch data for some users");
-                // setUserData(results as UserData[]);
-                // merge the results with the existing data
-                setUserData((prevData) => {
-                    const newData = [...prevData];
-                    results.forEach((result) => {
-                        const index = newData.findIndex(
-                            (data) => data.username === result.username
-                        );
-                        if (index !== -1) {
-                            newData[index] = result;
-                        } else {
-                            newData.push(result);
-                        }
-                    });
-                    return newData;
+                let mergedData = [...userData];
+                results.forEach((result) => {
+                    const index = mergedData.findIndex(
+                        (user) => user.username === result.username
+                    );
+                    if (index === -1) {
+                        mergedData.push(result as UserData);
+                    } else {
+                        mergedData[index] = result as UserData;
+                    }
                 });
+                setUserData(mergedData);
                 if (userData.length === 0)
                     setError("Failed to fetch LeetCode data");
                 else if (userData.length < users.length)
@@ -103,7 +95,7 @@ export const useLeetCode = (users: UserProfile[]) => {
         };
 
         fetchData();
-    }, [users]);
+    }, []);
 
     return { userData, loading, error };
 };
