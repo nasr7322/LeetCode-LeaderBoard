@@ -136,19 +136,19 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                     <Flame
                                         size={16}
                                         fill={
-                                            user.currentStreak > 0
+                                            user.solvedToday
                                                 ? "currentColor"
                                                 : "none"
                                         }
                                         className={
-                                            user.currentStreak > 0
+                                            user.solvedToday
                                                 ? "text-orange-500 animate-pulse drop-shadow-[0_0_8px_rgba(249,115,22,0.7)]"
                                                 : "text-gray-500"
                                         }
                                     />
                                     <span
                                         className={
-                                            user.currentStreak > 0
+                                            user.solvedToday
                                                 ? "font-semibold text-orange-500 animate-pulse drop-shadow-[0_0_8px_rgba(249,115,22,0.7)]"
                                                 : "font-semibold text-gray-500"
                                         }

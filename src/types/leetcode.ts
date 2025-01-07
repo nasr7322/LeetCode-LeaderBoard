@@ -20,4 +20,5 @@ export interface UserData extends LeetCodeStats {
     username: string;
     displayName: string;
     currentStreak: number;
+    solvedToday: boolean;
 }

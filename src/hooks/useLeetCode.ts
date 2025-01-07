@@ -2,15 +2,22 @@ import { useState, useEffect } from "react";
 import { LeetCodeStats, UserData } from "../types/leetcode";
 import { UserProfile } from "../types/user";
 
-const getCurrentStreak = (calendar: Record<string, number>): number => {
+const getCurrentStreak = (
+    calendar: Record<string, number>
+): { solvedToday: boolean; currentStreak: number } => {
     const timestamps = Object.keys(calendar)
         .map(Number)
         .sort((a, b) => b - a);
 
     let currentStreak = 0;
+    let solvedToday = true;
     let previousDate = new Date(timestamps[0] * 1000);
     if (previousDate.getDate() !== new Date().getDate()) {
-        return 0;
+        solvedToday = false;
+        if (previousDate.getDate() !== new Date().getDate() - 1) {
+            return { solvedToday, currentStreak };
+        }
+        currentStreak = 1;
     }
     for (let i = 0; i < timestamps.length; i++) {
         const currentDate = new Date(timestamps[i] * 1000);
@@ -22,7 +29,7 @@ const getCurrentStreak = (calendar: Record<string, number>): number => {
 
         previousDate = currentDate;
     }
-    return currentStreak + 1;
+    return { solvedToday, currentStreak };
 };
 
 export const useLeetCode = (users: UserProfile[]) => {
@@ -38,15 +45,16 @@ export const useLeetCode = (users: UserProfile[]) => {
                         `https://leetcode-stats-api.herokuapp.com/${user.username}`
                     );
                     const data: LeetCodeStats = await response.json();
-                    const currentStreak = getCurrentStreak(
+                    const { solvedToday, currentStreak } = getCurrentStreak(
                         data.submissionCalendar
                     );
-                    // console.log(user.username, currentStreak);
+                    // console.log(user.username, currentStreak, solvedToday);
                     return {
                         ...data,
                         username: user.username,
                         displayName: user.displayName,
                         currentStreak,
+                        solvedToday,
                     };
                 });
 
