@@ -1,10 +1,10 @@
 import {
     ArrowUpDown,
     ExternalLink,
+    Flame,
     Target,
     Trophy,
     Zap,
-    Flame,
 } from "lucide-react";
 import React, { useState } from "react";
 import { UserData } from "../types/leetcode";
@@ -23,6 +23,8 @@ type SortKey =
 export const LeaderboardTable: React.FC<Props> = ({ data }) => {
     const [sortKey, setSortKey] = useState<SortKey>("totalSolved");
     const [sortDesc, setSortDesc] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
 
     const handleSort = (key: SortKey) => {
         if (sortKey === key) {
@@ -33,10 +35,21 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
         }
     };
 
+    const handleItemsPerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setItemsPerPage(Number(event.target.value));
+        setCurrentPage(1); // Reset to first page when items per page changes
+    };
+
     const sortedData = [...data].sort((a, b) => {
         const multiplier = sortDesc ? -1 : 1;
         return (a[sortKey] - b[sortKey]) * multiplier;
     });
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedData = sortedData.slice(startIndex, endIndex);
+
+    const totalPages = Math.ceil(data.length / itemsPerPage);
 
     return (
         <div className="overflow-x-auto rounded-lg shadow-lg">
@@ -93,13 +106,13 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-800">
-                    {sortedData.map((user, index) => (
+                    {paginatedData.map((user, index) => (
                         <tr
                             key={user.username}
                             className="hover:bg-gray-800/50"
                         >
-                            <td className="px-6 py-4">{index + 1}</td>
-                            <td className="px-6 py-4">
+                            <td className="px-6 py-4">{startIndex + index + 1}</td>
+                            <td className="px-6 py-4 w-1/3">
                                 <div>
                                     <div className="font-medium">
                                         {user.displayName}
@@ -116,7 +129,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                 </div>
                             </td>
                             <td className="px-6 py-4">
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 justify-center">
                                     <span className="font-semibold">
                                         {user.totalSolved}
                                     </span>
@@ -125,14 +138,14 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                     </span>
                                 </div>
                             </td>
-                            <td className="px-6 py-4">
+                            <td className="px-6 py-4 text-center">
                                 {user.ranking.toLocaleString()}
                             </td>
-                            <td className="px-6 py-4">
+                            <td className="px-6 py-4 text-center">
                                 {user.acceptanceRate.toFixed(1)}%
                             </td>
                             <td className="px-6 py-4">
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2 justify-center">
                                     <Flame
                                         size={16}
                                         fill={
@@ -149,8 +162,8 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                     <span
                                         className={
                                             user.solvedToday
-                                                ? "font-semibold text-orange-500 animate-pulse drop-shadow-[0_0_8px_rgba(249,115,22,0.7)]"
-                                                : "font-semibold text-gray-500"
+                                                ? "font-semibold text-orange-500 animate-pulse drop-shadow-[0_0_8px_rgba(249,115,22,0.7)] px-1"
+                                                : "font-semibold text-gray-500 px-1"
                                         }
                                     >
                                         {user.currentStreak}
@@ -158,7 +171,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                 </div>
                             </td>
                             <td className="px-6 py-4">
-                                <div className="flex gap-2 text-sm">
+                                <div className="flex gap-2 text-sm justify-center">
                                     <span className="text-leetcode-easy">
                                         E: {user.easySolved}
                                     </span>
@@ -174,6 +187,43 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                     ))}
                 </tbody>
             </table>
+            
+            <div className="flex justify-between items-center m-6">
+                <div>
+                    <label htmlFor="itemsPerPage" className="mr-2 text-leetcode-text">
+                        Items per page:
+                    </label>
+                    <select
+                        id="itemsPerPage"
+                        value={itemsPerPage}
+                        onChange={handleItemsPerPageChange}
+                        className="px-4 py-2 bg-leetcode-dark text-leetcode-text border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-leetcode-button"
+                    >
+                        <option value={10}>10</option>
+                        <option value={25}>25</option>
+                        <option value={50}>50</option>
+                    </select>
+                </div>
+                <div>
+                    <button
+                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 bg-leetcode-button text-white rounded-lg hover:bg-leetcode-hover transition-colors disabled:opacity-50"
+                    >
+                        Previous
+                    </button>
+                    <span className="mx-4 text-leetcode-text">
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 bg-leetcode-button text-white rounded-lg hover:bg-leetcode-hover transition-colors disabled:opacity-50"
+                    >
+                        Next
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };
