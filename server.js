@@ -1,13 +1,24 @@
-import axios from 'axios';
-import cors from 'cors';
 import express from 'express';
-const app = express();
+import cors from 'cors';
+import axios from 'axios';
 
-app.use(cors());
+const app = express();
+const port = 3001;
+
+// Replace the simple cors() with specific options
+app.use(cors({
+  origin: [
+    'http://localhost:5173', // Local development
+    'https://leet-code-leader-board.vercel.app', // Vercel deployment
+  ],
+  methods: ['GET'], // Only allow GET requests
+  credentials: true
+}));
 app.use(express.json());
 
 const LEETCODE_GRAPHQL_ENDPOINT = 'https://leetcode.com/graphql';
 
+// Query to get user profile data
 const profileQuery = `
   query userProfile($username: String!) {
     matchedUser(username: $username) {
@@ -47,6 +58,7 @@ const profileQuery = `
   }
 `;
 
+// Query to get user's recent submissions
 const submissionsQuery = `
   query recentSubmissions($username: String!) {
     recentSubmissionList(username: $username) {
@@ -63,6 +75,7 @@ app.get('/:username', async (req, res) => {
   try {
     const { username } = req.params;
 
+    // Get profile data
     const profileResponse = await axios.post(LEETCODE_GRAPHQL_ENDPOINT, {
       query: profileQuery,
       variables: { username }
@@ -72,6 +85,7 @@ app.get('/:username', async (req, res) => {
       }
     });
 
+    // Get submissions data
     const submissionsResponse = await axios.post(LEETCODE_GRAPHQL_ENDPOINT, {
       query: submissionsQuery,
       variables: { username }
@@ -84,6 +98,7 @@ app.get('/:username', async (req, res) => {
     const profileData = profileResponse.data.data.matchedUser;
     const submissionsData = submissionsResponse.data.data.recentSubmissionList;
 
+    // Calculate submission calendar
     const submissionCalendar = {};
     submissionsData.forEach(submission => {
       const timestamp = submission.timestamp;
@@ -94,6 +109,7 @@ app.get('/:username', async (req, res) => {
       }
     });
 
+    // Format response to match the existing API structure
     const response = {
       status: "success",
       message: "retrieved stats successfully",
@@ -123,4 +139,6 @@ app.get('/:username', async (req, res) => {
   }
 });
 
-export default app;
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});

@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { LeetCodeStats, UserData } from "../types/leetcode";
 import { UserProfile } from "../types/user";
 
+// Update the API URL to use an environment variable
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
+// ... rest of the file stays the same ..
+                // ... rest of the code stays the same ...
+
+
 const getCurrentStreak = (
     calendar: Record<string, number>
 ): { solvedToday: boolean; currentStreak: number } => {
@@ -38,13 +45,13 @@ export const useLeetCode = (users: UserProfile[]) => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+      const fetchData = async () => {
+    try {
+        const promises = users.map(async (user) => {
             try {
-                const promises = users.map(async (user) => {
-                    try {
-                        const response = await fetch(
-                            `http://localhost:3001/${user.username}`
-                        );
+                const response = await fetch(
+                    `${API_URL}/${user.username}`
+                );
                         if (!response.ok) {
                             throw new Error("Failed to fetch user data");
                         }
