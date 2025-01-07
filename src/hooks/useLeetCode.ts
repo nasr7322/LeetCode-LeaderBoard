@@ -52,7 +52,7 @@ export const useLeetCode = (users: UserProfile[]) => {
                         const { solvedToday, currentStreak } = getCurrentStreak(
                             data.submissionCalendar
                         );
-                        console.log(user.username, currentStreak, solvedToday);
+                        // console.log(user.username, currentStreak, solvedToday);
                         return {
                             ...data,
                             username: user.username,
