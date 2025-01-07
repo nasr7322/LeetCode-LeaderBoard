@@ -2,6 +2,8 @@
 
 LeetCode Leaderboard is a React application that displays a leaderboard of users based on their LeetCode statistics. The application fetches user data from the LeetCode API and displays it in a sortable and paginated table.
 
+![LeetCode Leaderboard](./images/Project%20Ui.png)
+
 ## Features
 
 - Display LeetCode user statistics including total problems solved, global ranking, acceptance rate, current streak, and progress.
@@ -18,8 +20,7 @@ LeetCode Leaderboard is a React application that displays a leaderboard of users
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/nasr7322/LeetCode-LeaderBoard.git
-    cd LeetCode-LeaderBoard
+    gh repo clone nasr7322/LeetCode-LeaderBoard
     ```
 
 2. Install dependencies:
