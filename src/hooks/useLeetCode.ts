@@ -43,7 +43,7 @@ export const useLeetCode = (users: UserProfile[]) => {
                 const promises = users.map(async (user) => {
                     try {
                         const response = await fetch(
-                            `https://leetcode-stats-api.herokuapp.com/${user.username}`
+                            `http://localhost:3001/${user.username}`
                         );
                         if (!response.ok) {
                             throw new Error("Failed to fetch user data");
