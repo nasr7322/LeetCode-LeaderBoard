@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { LeetCodeStats, UserData } from "../types/leetcode";
 import { UserProfile } from "../types/user";
 
@@ -43,7 +43,7 @@ export const useLeetCode = (users: UserProfile[]) => {
                 const promises = users.map(async (user) => {
                     try {
                         const response = await fetch(
-                            `http://localhost:3001/${user.username}`
+                            `https://leetcode-stats-api.herokuapp.com/${user.username}`
                         );
                         if (!response.ok) {
                             throw new Error("Failed to fetch user data");
@@ -52,7 +52,7 @@ export const useLeetCode = (users: UserProfile[]) => {
                         const { solvedToday, currentStreak } = getCurrentStreak(
                             data.submissionCalendar
                         );
-                        // console.log(user.username, currentStreak, solvedToday);
+                        console.log(user.username, currentStreak, solvedToday);
                         return {
                             ...data,
                             username: user.username,

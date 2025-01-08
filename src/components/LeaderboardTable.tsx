@@ -1,10 +1,10 @@
 import {
     ArrowUpDown,
     ExternalLink,
-    Flame,
     Target,
     Trophy,
     Zap,
+    Flame,
 } from "lucide-react";
 import React, { useState } from "react";
 import { UserData } from "../types/leetcode";
