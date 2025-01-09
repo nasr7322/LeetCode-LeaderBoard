@@ -1,6 +1,7 @@
-export interface LeetCodeStats {
-    status: string;
-    message: string;
+export interface UserData {
+    username: string;
+    displayName: string;
+    realName: string;
     totalSolved: number;
     totalQuestions: number;
     easySolved: number;
@@ -11,14 +12,6 @@ export interface LeetCodeStats {
     totalHard: number;
     acceptanceRate: number;
     ranking: number;
-    contributionPoints: number;
-    reputation: number;
-    submissionCalendar: Record<string, number>;
-}
-
-export interface UserData extends LeetCodeStats {
-    username: string;
-    displayName: string;
     currentStreak: number;
     solvedToday: boolean;
 }

@@ -16,11 +16,11 @@ export function App() {
         userData: fetchedData,
         loading: dataLoading,
         error: fetchError,
+        serverChecked
     } = useLeetCode(usersData.users);
 
     useEffect(() => {
         if (!dataLoading && fetchedData) {
-            // setUserData(fetchedData);
             let newData = [...userData];
             fetchedData.forEach((user) => {
                 const index = newData.findIndex(
@@ -31,14 +31,7 @@ export function App() {
             });
             setUserData(newData);
             setLoading(dataLoading);
-            if (fetchedData.length === 0)
-                setError("Failed to fetch LeetCode data");
-            else if (fetchedData.length < usersData.users.length)
-                setError("Failed to fetch data for some users");
-            else setError(null);
-        } else if (fetchError) {
             setError(fetchError);
-            setLoading(false);
         }
     }, [dataLoading, fetchedData, fetchError]);
 
@@ -50,7 +43,22 @@ export function App() {
                 {!loading && userData.length > 0 && (
                     <LeaderboardTable data={userData} />
                 )}
-                {error && <ErrorMessage message={error} />}
+                {error && (
+                    <div className="mt-8">
+                        <ErrorMessage message={error} />
+                        {!serverChecked && (
+                            <div className="mt-4 bg-gray-800 p-4 rounded-lg text-leetcode-text">
+                                <h3 className="text-lg font-semibold mb-2">To start the server:</h3>
+                                <ol className="list-decimal list-inside space-y-2">
+                                    <li>Open a new terminal</li>
+                                    <li>Run: <code className="bg-gray-700 px-2 py-1 rounded">node server.js</code></li>
+                                    <li>Wait for the server to start</li>
+                                    <li>Refresh this page</li>
+                                </ol>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );
