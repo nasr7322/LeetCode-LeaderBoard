@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { UserData } from "../types/leetcode";
 import { UserProfile } from "../types/user";
 
-const API_URL = "https://leetcode-leaderboard-s.vercel.app";
+const API_URL = "https://leet-code-leader-board-backend.vercel.app";
 // const API_URL = "http://localhost:3000";
- 
+// https://leet-code-leader-board-backend.vercel.app/
 
 export const useLeetCode = (users: UserProfile[]) => {
     const [userData, setUserData] = useState<UserData[]>([]);
