@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react";
 import { ErrorMessage } from "./components/ErrorMessage";
 import { Header } from "./components/Header";
 import { LeaderboardTable } from "./components/LeaderboardTable";
 import { LoadingSpinner } from "./components/LoadingSpinner";
 import usersData from "./data/users.json";
 import { useLeetCode } from "./hooks/useLeetCode";
-import { useEffect, useState } from "react";
 import { UserData } from "./types/leetcode";
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
     }, [dataLoading, fetchedData, fetchError]);
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-leetcode-dark to-black">
+        <div className="min-h-screen bg-leetcode-dark">
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <Header />
                 {loading && <LoadingSpinner />}

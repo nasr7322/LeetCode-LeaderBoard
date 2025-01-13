@@ -1,10 +1,8 @@
 import React from 'react';
-import { Code2 } from 'lucide-react';
 
 export const LoadingSpinner: React.FC = () => (
   <div className="flex flex-col items-center justify-center py-12">
     <div className="relative">
-      <Code2 size={48} className="text-leetcode-button animate-pulse" />
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-6 h-6 border-4 border-transparent border-t-leetcode-button rounded-full animate-spin"></div>
       </div>
