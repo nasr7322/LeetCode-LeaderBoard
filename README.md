@@ -41,33 +41,34 @@ LeetCode Leaderboard is a React application that displays a leaderboard of users
 ## How It Works
 
 The application uses the GraphQL LeetCode API to fetch user data from `https://leetcode.com/graphql/` by sending a query that looks something like this:
-    ```json
-        Query getUserProfile($username: String!) {
-            allQuestionsCount {
-                difficulty
-                count
+
+    ```graphql
+    query getUserProfile($username: String!) {
+        allQuestionsCount {
+            difficulty
+            count
+        }
+        matchedUser(username: $username) {
+            username
+            profile {
+                realName
+                ranking
             }
-            matchedUser(username: $username) {
-                username
-                profile {
-                    realName
-                    ranking
+            submitStats {
+                totalSubmissionNum {
+                    difficulty
+                    count
+                    submissions
                 }
-                submitStats {
-                    totalSubmissionNum {
-                        difficulty
-                        count
-                        submissions
-                    }
-                    acSubmissionNum {
-                        difficulty
-                        count
-                        submissions
-                    }
+                acSubmissionNum {
+                    difficulty
+                    count
+                    submissions
                 }
-                submissionCalendar
             }
-        }`
+            submissionCalendar
+        }
+    }
     ```
 
 The backend server is made with Express and hosted on Vercel, separated from the frontend.
