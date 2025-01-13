@@ -2,13 +2,14 @@ import React from 'react';
 
 export const LoadingSpinner: React.FC = () => (
   <div className="flex flex-col items-center justify-center py-12">
+
     <div className="relative">
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-6 h-6 border-4 border-transparent border-t-leetcode-button rounded-full animate-spin"></div>
       </div>
     </div>
     
-    <div className="mt-8 bg-[#282c34] rounded-lg p-4 max-w-md w-full overflow-hidden">
+    <div className="mt-10 bg-black/30 rounded-lg p-4 max-w-md w-full overflow-hidden">
       <div className="flex gap-2 mb-3">
         <div className="w-3 h-3 rounded-full bg-red-500"></div>
         <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -31,7 +32,7 @@ export const LoadingSpinner: React.FC = () => (
       </div>
     </div>
     
-    <p className="mt-4 text-leetcode-text font-mono text-sm">
+    <p className="mt-4 text-gray-400 font-mono text-sm">
       <span className="animate-pulse">Fetching leaderboard data</span>
       <span className="animate-[blink_1s_infinite]">...</span>
     </p>
