@@ -1,10 +1,10 @@
-import express from "express";
 import cors from "cors";
+import express from "express";
 
 import bodyParser from "body-parser";
 import fetch from "node-fetch";
-import userDataQuery from "./utils/UserDataQuery.js";
 import formatUserData from "./utils/Formatter.js";
+import userDataQuery from "./utils/UserDataQuery.js";
 const app = express();
 app.use(cors({ origin: "*" }));
 const PORT = process.env.PORT || 3000;
