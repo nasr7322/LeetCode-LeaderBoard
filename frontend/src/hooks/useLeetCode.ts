@@ -53,7 +53,7 @@ export const useLeetCode = (users: UserProfile[]) => {
                         }
                         const data = (await response.json()) as UserData;
                         data.displayName = user.displayName;
-                        console.log(data);
+                        // console.log(data);
                         return data;
                     } catch (err) {
                         console.error(
