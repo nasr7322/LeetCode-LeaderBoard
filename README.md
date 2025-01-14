@@ -133,7 +133,6 @@ If you want to host your own application, you need to update the API URL in the 
 2. **Deploy Changes:**
    - After making the changes, redeploy both the backend and frontend to Vercel or your preferred hosting service.
 
-By following these steps, you can host the backend and frontend servers separately on Vercel and update the necessary URLs for self-hosting.
 
 ### License
 
