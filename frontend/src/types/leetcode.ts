@@ -14,4 +14,5 @@ export interface UserData {
     ranking: number;
     currentStreak: number;
     solvedToday: boolean;
+    activeBadge: { displayName: string; icon: string };
 }

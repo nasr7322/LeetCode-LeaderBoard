@@ -24,6 +24,10 @@ query getUserProfile($username: String!) {
             }
         }
         submissionCalendar
+        activeBadge {
+            displayName
+            icon
+        }
     }
 }`;
 

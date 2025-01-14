@@ -4,7 +4,6 @@ import { UserProfile } from "../types/user";
 
 const API_URL = "https://leet-code-leader-board-backend.vercel.app";
 // const API_URL = "http://localhost:3000";
-// https://leet-code-leader-board-backend.vercel.app/
 
 export const useLeetCode = (users: UserProfile[]) => {
     const [userData, setUserData] = useState<UserData[]>([]);
@@ -54,6 +53,7 @@ export const useLeetCode = (users: UserProfile[]) => {
                         }
                         const data = (await response.json()) as UserData;
                         data.displayName = user.displayName;
+                        // console.log(data);
                         return data;
                     } catch (err) {
                         console.error(

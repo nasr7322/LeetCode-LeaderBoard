@@ -165,10 +165,31 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                         </span>
                                     </div>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="px-6 py-4 whitespace-nowrap min-w-[260px]">
                                     <div>
-                                        <div className="font-medium text-lg text-gray-100 group-hover:text-leetcode-button transition-colors">
+                                        <div className="flex items-center gap-2 font-medium text-lg text-gray-100 group-hover:text-leetcode-button transition-colors">
                                             {user.displayName}
+                                            {user.activeBadge && (
+                                                <div className="relative group/badge">
+                                                    <img
+                                                        src={
+                                                            user.activeBadge
+                                                                .icon
+                                                        }
+                                                        alt={
+                                                            user.activeBadge
+                                                                .displayName
+                                                        }
+                                                        className="w-6 h-6 object-contain"
+                                                    />
+                                                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-xs text-white rounded opacity-0 group-hover/badge:opacity-100 transition-opacity whitespace-nowrap">
+                                                        {
+                                                            user.activeBadge
+                                                                .displayName
+                                                        }
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                         <a
                                             href={`https://leetcode.com/${user.username}/`}

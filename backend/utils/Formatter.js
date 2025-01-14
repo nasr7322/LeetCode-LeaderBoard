@@ -30,6 +30,12 @@ const formatUserData = (userData) => {
     const { solvedToday, currentStreak } = getCurrentStreak(
         JSON.parse(userData.matchedUser.submissionCalendar)
     );
+    if (userData.matchedUser.activeBadge) {
+        // if activeBadge.icon does not start with 'https://', then it is a relative path
+        if (!userData.matchedUser.activeBadge.icon.startsWith("https://")) {
+            userData.matchedUser.activeBadge.icon = `https://leetcode.com${userData.matchedUser.activeBadge.icon}`;
+        }
+    }
     return {
         username: userData.matchedUser.username,
         realName: userData.matchedUser.profile.realName,
@@ -50,6 +56,7 @@ const formatUserData = (userData) => {
         submissionCalendar: JSON.parse(userData.matchedUser.submissionCalendar),
         solvedToday: solvedToday,
         currentStreak: currentStreak,
+        activeBadge: userData.matchedUser.activeBadge,
     };
 };
 
