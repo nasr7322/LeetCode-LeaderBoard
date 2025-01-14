@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { UserData } from "../types/leetcode";
 import { UserProfile } from "../types/user";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-
+const API_URL = import.meta.env.VITE_API_KEY || "http://localhost:3000";
 
 export const useLeetCode = (users: UserProfile[]) => {
     const [userData, setUserData] = useState<UserData[]>([]);
@@ -14,7 +13,7 @@ export const useLeetCode = (users: UserProfile[]) => {
     useEffect(() => {
         const checkServer = async () => {
             try {
-                console.log(process.env.NEXT_PUBLIC_API_URL);
+                console.log(import.meta.env.VITE_API_KEY);
                 const response = await fetch(`${API_URL}/`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
