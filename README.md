@@ -43,7 +43,7 @@ As a way to encourage me and my friends to solve more leetcode problems we decid
 For the tech stack we used Vite React for our frontend and a backend server made with Express and hosted both on Vercel.
 The application uses the GraphQL LeetCode API to fetch user data from `https://leetcode.com/graphql/` by sending a query that looks something like this:
 
-    ```
+    ```sh
         query getUserProfile($username: String!) {
             allQuestionsCount {
                 difficulty
