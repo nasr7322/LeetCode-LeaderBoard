@@ -1,12 +1,12 @@
 import {
     ArrowUpDown,
+    Crown,
     ExternalLink,
+    Flame,
+    Medal,
     Target,
     Trophy,
-    Zap,
-    Flame,
-    Crown,
-    Medal,
+    Zap
 } from "lucide-react";
 import React, { useState } from "react";
 import { UserData } from "../types/leetcode";
@@ -50,10 +50,10 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
     };
 
     const getRankIcon = (index: number) => {
-        // if (index === 0) return <Crown className="w-6 h-6 text-yellow-400" />;
-        // if (index === 1) return <Medal className="w-6 h-6 text-gray-300" />;
-        // if (index === 2) return <Medal className="w-6 h-6 text-amber-600" />;
         return null;
+        if (index === 0) return <Crown className="w-4 h-4 text-yellow-400" />;
+        if (index === 1) return <Medal className="w-4 h-4 text-gray-300" />;
+        if (index === 2) return <Medal className="w-4 h-4 text-amber-600" />;
     };
 
     const getProgressBarWidth = (solved: number, total: number) => {
@@ -61,10 +61,10 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
     };
 
     return (
-        <div className="overflow-hidden rounded-xl shadow-2xl bg-gradient-to-br from-gray-900 to-leetcode-dark border border-gray-800">
+        <div className="overflow-hidden rounded-xl shadow-2xl">
             <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-800">
-                    <thead className="bg-black/30">
+                <table className="min-w-full divide-y divide-white/20">
+                    <thead className="bg-black/50">
                         <tr>
                             <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-300">
                                 Rank
@@ -141,7 +141,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-800/50 bg-black/20">
+                    <tbody className="divide-y divide-white/10 bg-black/20">
                         {sortedData.map((user, index) => (
                             <tr
                                 key={user.username}
@@ -153,13 +153,13 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                     <div className="flex items-center gap-2">
                                         {getRankIcon(index)}
                                         <span
-                                            className={`font-mono text-lg ${getRankColor(
+                                            className={`font-medium text-lg ${getRankColor(
                                                 index
                                             )} ${
                                                 hoveredRow === index
-                                                    ? "scale-110"
+                                                    ? "text-leetcode-button"
                                                     : ""
-                                            } transition-transform duration-200`}
+                                            }  transition-colors`}
                                         >
                                             #{index + 1}
                                         </span>
@@ -191,7 +191,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                                 / {user.totalQuestions}
                                             </span>
                                         </div>
-                                        <div className="w-full h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                                        <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
                                             <div
                                                 className="h-full bg-gradient-to-r from-leetcode-button to-green-400 rounded-full transition-all duration-500 ease-out"
                                                 style={{
@@ -205,7 +205,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-center">
-                                    <span className="font-mono text-lg text-gray-100 group-hover:scale-110 transition-transform duration-200 inline-block">
+                                    <span className="font-mono text-lg text-gray-100 group-hover:text-leetcode-button transition-colors">
                                         {user.ranking.toLocaleString()}
                                     </span>
                                 </td>
@@ -217,7 +217,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                                 : user.acceptanceRate >= 50
                                                 ? "text-yellow-400"
                                                 : "text-red-400"
-                                        } group-hover:scale-110 transition-transform duration-200 inline-block`}
+                                        }`}
                                     >
                                         {user.acceptanceRate.toFixed(1)}%
                                     </span>
@@ -234,7 +234,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                             className={`transition-all duration-300 ${
                                                 user.solvedToday
                                                     ? "text-orange-500 animate-pulse drop-shadow-[0_0_8px_rgba(249,115,22,0.7)] group-hover:scale-125"
-                                                    : "text-gray-500 group-hover:scale-110"
+                                                    : "text-gray-500"
                                             }`}
                                         />
                                         <span
@@ -251,7 +251,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex gap-4 items-center">
                                         <div className="flex flex-col items-center group/easy">
-                                            <span className="text-leetcode-easy font-mono text-lg group-hover/easy:scale-110 transition-transform">
+                                            <span className="text-leetcode-easy font-mono text-lg">
                                                 {user.easySolved}
                                             </span>
                                             <span className="text-xs text-gray-400">
@@ -259,7 +259,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                             </span>
                                         </div>
                                         <div className="flex flex-col items-center group/medium">
-                                            <span className="text-leetcode-medium font-mono text-lg group-hover/medium:scale-110 transition-transform">
+                                            <span className="text-leetcode-medium font-mono text-lg">
                                                 {user.mediumSolved}
                                             </span>
                                             <span className="text-xs text-gray-400">
@@ -267,7 +267,7 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                             </span>
                                         </div>
                                         <div className="flex flex-col items-center group/hard">
-                                            <span className="text-leetcode-hard font-mono text-lg group-hover/hard:scale-110 transition-transform">
+                                            <span className="text-leetcode-hard font-mono text-lg">
                                                 {user.hardSolved}
                                             </span>
                                             <span className="text-xs text-gray-400">
