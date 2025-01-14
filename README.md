@@ -38,43 +38,44 @@ As a way to encourage me and my friends to solve more leetcode problems we decid
 4. Open your browser and navigate to `http://localhost:5173`.
 
 
+
 ## How It Works
 
 For the tech stack we used Vite React for our frontend and a backend server made with Express and hosted both on Vercel.
 The application uses the GraphQL LeetCode API to fetch user data from `https://leetcode.com/graphql/` by sending a query that looks something like this:
 
-    ```sh
-        query getUserProfile($username: String!) {
-            allQuestionsCount {
+```graphql
+query getUserProfile($username: String!) {
+    allQuestionsCount {
+        difficulty
+        count
+    }
+    matchedUser(username: $username) {
+        username
+        profile {
+            realName
+            ranking
+        }
+        submitStats {
+            totalSubmissionNum {
                 difficulty
                 count
+                submissions
             }
-            matchedUser(username: $username) {
-                username
-                profile {
-                    realName
-                    ranking
-                }
-                submitStats {
-                    totalSubmissionNum {
-                        difficulty
-                        count
-                        submissions
-                    }
-                    acSubmissionNum {
-                        difficulty
-                        count
-                        submissions
-                    }
-                }
-                submissionCalendar
-                activeBadge {
-                    displayName
-                    icon
-                }
+            acSubmissionNum {
+                difficulty
+                count
+                submissions
             }
         }
-    ```
+        submissionCalendar
+        activeBadge {
+            displayName
+            icon
+        }
+    }
+}
+```
 
 ## Host Your Own Leaderboard:
 
@@ -133,3 +134,7 @@ If you want to host your own application, you need to update the API URL in the 
    - After making the changes, redeploy both the backend and frontend to Vercel or your preferred hosting service.
 
 By following these steps, you can host the backend and frontend servers separately on Vercel and update the necessary URLs for self-hosting.
+
+### License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
