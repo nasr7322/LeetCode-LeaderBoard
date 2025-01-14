@@ -2,14 +2,14 @@
 
 [![Static Badge](https://img.shields.io/badge/Hosted_on-Vercel-black%3Flogo%3Dvercel)](https://leet-code-leader-board.vercel.app/)
 
-LeetCode Leaderboard is a React application that displays a leaderboard of users based on their LeetCode statistics. The application fetches user data from the LeetCode API and displays it in a sortable user friendly table to help keep everyone motivated and having fun.
+As a way to encourage me and my friends to solve more leetcode problems we decided to make a leaderboard website that displays users based on their LeetCode statistics. The application fetches user data from the LeetCode API and displays it in a sortable user friendly table to help keep everyone motivated and having fun.
 
 <img src="./images/Ui.png" alt="LeetCode Leaderboard"  style="width: 100%;">
 
 ## Features
 
-- Display LeetCode user statistics including total problems solved, global ranking, acceptance rate, current streak, and progress in every problem difficulty.
-- Sort the leaderboard by different criteria such as total problems solved, global ranking, acceptance rate, and current streak.
+- Display LeetCode user statistics including active badge, total problems solved, global ranking, acceptance rate, current streak, and progress in every problem difficulty.
+- Sort the leaderboard by different criteria.
 - Responsive design and animations with Tailwind CSS.
 
 
@@ -40,38 +40,41 @@ LeetCode Leaderboard is a React application that displays a leaderboard of users
 
 ## How It Works
 
+For the tech stack we used Vite React for our frontend and a backend server made with Express and hosted both on Vercel.
 The application uses the GraphQL LeetCode API to fetch user data from `https://leetcode.com/graphql/` by sending a query that looks something like this:
 
-    ```graphql
-    query getUserProfile($username: String!) {
-        allQuestionsCount {
-            difficulty
-            count
-        }
-        matchedUser(username: $username) {
-            username
-            profile {
-                realName
-                ranking
-            }
-            submitStats {
-                totalSubmissionNum {
-                    difficulty
-                    count
-                    submissions
-                }
-                acSubmissionNum {
-                    difficulty
-                    count
-                    submissions
-                }
-            }
-            submissionCalendar
-        }
-    }
     ```
-
-The backend server is made with Express and hosted on Vercel, separated from the frontend.
+        query getUserProfile($username: String!) {
+            allQuestionsCount {
+                difficulty
+                count
+            }
+            matchedUser(username: $username) {
+                username
+                profile {
+                    realName
+                    ranking
+                }
+                submitStats {
+                    totalSubmissionNum {
+                        difficulty
+                        count
+                        submissions
+                    }
+                    acSubmissionNum {
+                        difficulty
+                        count
+                        submissions
+                    }
+                }
+                submissionCalendar
+                activeBadge {
+                    displayName
+                    icon
+                }
+            }
+        }
+    ```
 
 ## Host Your Own Leaderboard:
 
