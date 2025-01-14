@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { UserData } from "../types/leetcode";
 import { UserProfile } from "../types/user";
 
-const API_URL = process.env.API_URL || "http://localhost:3000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
 
 export const useLeetCode = (users: UserProfile[]) => {
