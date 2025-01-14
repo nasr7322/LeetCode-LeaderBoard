@@ -5,7 +5,6 @@ interface Props {
     message: string;
 }
 
-const err = process.env.NEXT_PUBLIC_API_URL
 
 export const ErrorMessage: React.FC<Props> = ({ message }) => (
     <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-6 text-red-400 flex items-start gap-3">
@@ -13,7 +12,6 @@ export const ErrorMessage: React.FC<Props> = ({ message }) => (
         <div>
             <h4 className="font-semibold mb-1">Error</h4>
             <p>{message}</p>
-            <p>{err}</p>
         </div>
     </div>
 );
