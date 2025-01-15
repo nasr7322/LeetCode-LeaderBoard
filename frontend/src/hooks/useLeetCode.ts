@@ -37,7 +37,7 @@ export const useLeetCode = () => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
                 setUserData(data.usersData as UserData[]);
                 if (data.fetchedUsers === 0)
                     setError(
