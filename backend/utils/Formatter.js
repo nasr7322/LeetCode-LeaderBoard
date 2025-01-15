@@ -26,7 +26,7 @@ const getCurrentStreak = (calendar) => {
     return { solvedToday, currentStreak };
 };
 
-const formatUserData = (userData) => {
+const formatUserData = (userData, displayName = null) => {
     const { solvedToday, currentStreak } = getCurrentStreak(
         JSON.parse(userData.matchedUser.submissionCalendar)
     );
@@ -38,6 +38,7 @@ const formatUserData = (userData) => {
     }
     return {
         username: userData.matchedUser.username,
+        displayName: displayName,
         realName: userData.matchedUser.profile.realName,
         totalSolved: userData.matchedUser.submitStats.acSubmissionNum[0].count,
         totalQuestions: userData.allQuestionsCount[0].count,

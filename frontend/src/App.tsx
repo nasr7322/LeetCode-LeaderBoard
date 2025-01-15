@@ -3,7 +3,6 @@ import { ErrorMessage } from "./components/ErrorMessage";
 import { Header } from "./components/Header";
 import { LeaderboardTable } from "./components/LeaderboardTable";
 import { LoadingSpinner } from "./components/LoadingSpinner";
-import usersData from "./data/users.json";
 import { useLeetCode } from "./hooks/useLeetCode";
 import { UserData } from "./types/leetcode";
 
@@ -17,7 +16,7 @@ function App() {
         loading: dataLoading,
         error: fetchError,
         serverChecked,
-    } = useLeetCode(usersData.users);
+    } = useLeetCode();
 
     useEffect(() => {
         if (!dataLoading && fetchedData) {
