@@ -5,10 +5,11 @@ import fetch from "node-fetch";
 import fs from "fs/promises"; // Import fs/promises for file handling
 import formatUserData from "./utils/Formatter.js";
 import userDataQuery from "./utils/UserDataQuery.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
-const FRONTEND_URL =
-    import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173";
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 
 const app = express();
 app.use(cors({ origin: FRONTEND_URL }));
