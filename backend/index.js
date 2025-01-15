@@ -2,7 +2,8 @@ import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
 import fetch from "node-fetch";
-import fs from "fs/promises"; // Import fs/promises for file handling
+import fs from "fs/promises";
+import path from "path";
 import formatUserData from "./utils/Formatter.js";
 import userDataQuery from "./utils/UserDataQuery.js";
 import dotenv from "dotenv";
@@ -56,7 +57,10 @@ app.post("/api/user", async (req, res) => {
 
 app.get("/api/users", async (req, res) => {
     try {
-        const fileData = await fs.readFile("data/users.json", "utf-8");
+        const fileData = await fs.readFile(
+            path.join(process.cwd(), "data/users.json"),
+            "utf-8"
+        );
         const jsonData = JSON.parse(fileData);
         const users = jsonData.users;
 
