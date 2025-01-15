@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-    readonly VITE_FRONTEND_URL: string;
+    readonly FRONTEND_URL: string;
 }
 
 interface ImportMeta {
