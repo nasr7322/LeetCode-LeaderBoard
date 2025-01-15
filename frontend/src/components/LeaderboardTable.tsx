@@ -6,7 +6,7 @@ import {
     Medal,
     Target,
     Trophy,
-    Zap
+    Zap,
 } from "lucide-react";
 import React, { useState } from "react";
 import { UserData } from "../types/leetcode";
@@ -149,8 +149,8 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                 onMouseEnter={() => setHoveredRow(index)}
                                 onMouseLeave={() => setHoveredRow(null)}
                             >
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="flex items-center gap-2">
+                                <td className="pl-6 pr-0 py-4 whitespace-nowrap min-w-[100px]">
+                                    <div className="flex items-center gap-2 justify-between">
                                         {getRankIcon(index)}
                                         <span
                                             className={`font-medium text-lg ${getRankColor(
@@ -163,33 +163,30 @@ export const LeaderboardTable: React.FC<Props> = ({ data }) => {
                                         >
                                             #{index + 1}
                                         </span>
+                                        {user.activeBadge && (
+                                            <div className="relative group/badge px-1">
+                                                <img
+                                                    src={user.activeBadge.icon}
+                                                    alt={
+                                                        user.activeBadge
+                                                            .displayName
+                                                    }
+                                                    className="w-8 h-8 object-contain"
+                                                />
+                                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-xs text-white rounded opacity-0 group-hover/badge:opacity-100 transition-opacity whitespace-nowrap">
+                                                    {
+                                                        user.activeBadge
+                                                            .displayName
+                                                    }
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap min-w-[260px]">
+                                <td className="px-6 py-4 whitespace-nowrap">
                                     <div>
                                         <div className="flex items-center gap-2 font-medium text-lg text-gray-100 group-hover:text-leetcode-button transition-colors">
                                             {user.displayName}
-                                            {user.activeBadge && (
-                                                <div className="relative group/badge">
-                                                    <img
-                                                        src={
-                                                            user.activeBadge
-                                                                .icon
-                                                        }
-                                                        alt={
-                                                            user.activeBadge
-                                                                .displayName
-                                                        }
-                                                        className="w-6 h-6 object-contain"
-                                                    />
-                                                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-xs text-white rounded opacity-0 group-hover/badge:opacity-100 transition-opacity whitespace-nowrap">
-                                                        {
-                                                            user.activeBadge
-                                                                .displayName
-                                                        }
-                                                    </div>
-                                                </div>
-                                            )}
                                         </div>
                                         <a
                                             href={`https://leetcode.com/${user.username}/`}

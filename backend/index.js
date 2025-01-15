@@ -1,14 +1,17 @@
 import cors from "cors";
 import express from "express";
-
 import bodyParser from "body-parser";
 import fetch from "node-fetch";
+import fs from "fs/promises"; // Import fs/promises for file handling
 import formatUserData from "./utils/Formatter.js";
 import userDataQuery from "./utils/UserDataQuery.js";
-const app = express();
-app.use(cors({ origin: "*" }));
-const PORT = process.env.PORT || 3000;
 
+const PORT = process.env.PORT || 3000;
+const FRONTEND_URL =
+    import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173";
+
+const app = express();
+app.use(cors({ origin: FRONTEND_URL }));
 app.use(bodyParser.json());
 
 // Fetch User Details
@@ -34,7 +37,6 @@ const fetchUserDetails = async (username) => {
     return result.data;
 };
 
-// API Endpoint
 app.post("/api/user", async (req, res) => {
     const { username, limit = 20 } = req.body;
 
@@ -46,7 +48,39 @@ app.post("/api/user", async (req, res) => {
         const userData = await fetchUserDetails(username);
         const formattedData = formatUserData(userData);
         res.json(formattedData);
-        // res.json(userData);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get("/api/users", async (req, res) => {
+    try {
+        const fileData = await fs.readFile("data\\users.json", "utf-8");
+        const jsonData = JSON.parse(fileData);
+        const users = jsonData.users;
+
+        if (users.length === 0)
+            return res
+                .status(400)
+                .json({ error: "No users found in the file" });
+
+        const userDataPromises = users.map(async (user) => {
+            try {
+                const userData = await fetchUserDetails(user.username);
+                return formatUserData(userData, user.displayName);
+            } catch (error) {
+                console.error(
+                    `Error fetching data for ${user.username}: ${error.message}`
+                );
+            }
+        });
+
+        const totalUsers = users.length;
+        const usersData = (await Promise.all(userDataPromises)).filter(
+            (user) => user
+        );
+        const fetchedUsers = usersData.length;
+        res.json({ totalUsers, fetchedUsers, usersData });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
