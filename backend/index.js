@@ -56,7 +56,7 @@ app.post("/api/user", async (req, res) => {
 
 app.get("/api/users", async (req, res) => {
     try {
-        const fileData = await fs.readFile("./data/users.json", "utf-8");
+        const fileData = await fs.readFile("data/users.json", "utf-8");
         const jsonData = JSON.parse(fileData);
         const users = jsonData.users;
 
