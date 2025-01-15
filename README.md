@@ -1,15 +1,14 @@
-# LeetCode-LeaderBoard 
+# LeetCode-LeaderBoard 🚀
 
-[![Static Badge](https://img.shields.io/badge/Hosted_on-Vercel-black%3Flogo%3Dvercel)](https://leet-code-leader-board.vercel.app/)
+LeetCode-LeaderBoard is a web application designed to help you and your friends stay motivated while solving LeetCode problems. By showcasing users' LeetCode statistics in a sortable, interactive leaderboard, it makes tracking progress competitive and fun.
 
-As a way to encourage me and my friends to solve more leetcode problems we decided to make a leaderboard website that displays and sorts users based on their LeetCode statistics.
-The application fetches user data from the LeetCode API and displays it in a sortable user friendly table to help keep everyone motivated and having fun.
+The app fetches real-time data from the LeetCode API and presents it in an intuitive, user-friendly interface, complete with animations and responsive design. 🌟
 
-<img src="./images/Ui.png" alt="LeetCode Leaderboard"  style="width: 100%;">
+![LeetCode Leaderboard UI](./images/Ui.png)
 
 ## Features
 
-- Display LeetCode user statistics including:
+- Displays LeetCode user statistics, including:
     - Active badge.
     - Total problems solved.
     - Global ranking.
@@ -26,38 +25,35 @@ The application fetches user data from the LeetCode API and displays it in a sor
     gh repo clone nasr7322/LeetCode-LeaderBoard
     ```
 
-2. Navigate to the backend folder and install dependencies:
+2. Update the usernames you want to track in the [users.js](backend/data/users.js) file:
+
+3. Navigate to the backend folder, install dependencies and run the server:
     ```sh
     cd backend
     npm install
-    ```
-
-3. Start the backend server:
-    ```sh
     npm start
     ```
 
-4. Navigate to the frontend folder and install dependencies:
+4. Navigate to the frontend folder, install dependencies and run the app:
     ```sh
     cd ../frontend
     npm install
-    ```
-
-5. Update users in the JSON file:
-    [frontend/src/data/users.json](frontend/src/data/users.json)
-
-6. Start the development server:
-    ```sh
     npm start
     ```
 
-7. Open your browser and navigate to `http://localhost:5173`.
+5. Open your browser and navigate to `http://localhost:5173`.
 
 ## How It Works
 
-For the tech stack we used Vite React for our frontend and Express for the backend server, and hosted both on Vercel.
-The application uses the LeetCode API to fetch user data by sending a GraphQl query to `https://leetcode.com/graphql/`.
+Our project utilizes Vite React for the frontend and Express for the backend server, both hosted on Vercel. The application fetches real-time user statistics from the LeetCode GraphQL API `https://leetcode.com/graphql/` to ensure up-to-date leaderboard rankings.
+
+## Hosting
+
+[![Static Badge](https://img.shields.io/badge/Hosted_on-Vercel-black%3Flogo%3Dvercel)](https://leet-code-leader-board.vercel.app/)
+
+## Contributing
+Contributions are welcome! If you’d like to contribute, please fork the repository, create a new branch for your changes, and submit a pull request. For major changes, please open an issue first to discuss what you’d like to change.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the [MIT License](./LICENSE).
