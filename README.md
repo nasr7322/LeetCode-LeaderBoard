@@ -1,8 +1,9 @@
 # LeetCode-LeaderBoard 🚀
 
-LeetCode-LeaderBoard is a web application designed to help you and your friends stay motivated while solving LeetCode problems. By showcasing users' LeetCode statistics in a sortable, interactive leaderboard, it makes tracking progress competitive and fun.
+LeetCode-LeaderBoard is a web application designed to help you and your friends stay motivated while solving LeetCode problems.
+It makes tracking progress competitive and fun by showcasing users' LeetCode statistics in a sortable, interactive leaderboard.
 
-The app fetches real-time data from the LeetCode API and presents it in an intuitive, user-friendly interface, complete with animations and responsive design. 🌟
+The app fetches real-time data from the LeetCode API and presents it in an intuitive, user-friendly interface with animations and responsive design. 🌟
 
 ![LeetCode Leaderboard UI](./images/Ui.png)
 
@@ -45,7 +46,8 @@ The app fetches real-time data from the LeetCode API and presents it in an intui
 
 ## How It Works
 
-Our project utilizes Vite React for the frontend and Express for the backend server, both hosted on Vercel. The application fetches real-time user statistics from the LeetCode GraphQL API `https://leetcode.com/graphql/` to ensure up-to-date leaderboard rankings.
+Our project utilizes Vite React for the frontend and Express for the backend server, both hosted on Vercel.
+The application fetches real-time user statistics from the LeetCode GraphQL API `https://leetcode.com/graphql/` to ensure up-to-date leaderboard rankings.
 
 ## Hosting
 
