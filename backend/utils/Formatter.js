@@ -13,14 +13,11 @@ const getCurrentStreak = (calendar) => {
         }
     }
     currentStreak = 1;
-    for (let i = 0; i < timestamps.length; i++) {
+    for (let i = 1; i < timestamps.length; i++) {
         const currentDate = new Date(timestamps[i] * 1000);
-        if (previousDate.getDate() === currentDate.getDate() + 1) {
-            currentStreak += 1;
-        } else if (previousDate.getDate() !== currentDate.getDate()) {
-            break;
-        }
-
+        const diffTime = (previousDate - currentDate) / (1000 * 60 * 60 * 24);
+        if (diffTime === 1) currentStreak += 1;
+        else break;
         previousDate = currentDate;
     }
     return { solvedToday, currentStreak };
