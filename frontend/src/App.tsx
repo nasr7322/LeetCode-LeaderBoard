@@ -57,7 +57,7 @@ function App() {
                                     <li className="pl-2">
                                         Run:{" "}
                                         <code className="bg-black/30 px-3 py-1 rounded-md font-mono text-leetcode-button">
-                                            node server.js
+                                            node index.js
                                         </code>
                                     </li>
                                     <li className="pl-2">
